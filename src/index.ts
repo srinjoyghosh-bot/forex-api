@@ -3,13 +3,16 @@ import bodyParser from 'body-parser';
 import forexRoutes from './routes/forexRoutes';
 import { connectDB } from './config/database';
 import { Database } from 'sqlite';
+import { errorHandler } from "./middlewares/errorMiddlewares";
 
 const app = express();
-const PORT = 3000;
+const PORT =process.env.PORT ?? 3000;
 
 app.use(bodyParser.json());
 
 app.use('/api', forexRoutes);
+
+app.use(errorHandler)
 
 const setupDatabase = async () => {
   const db : Database = await connectDB();

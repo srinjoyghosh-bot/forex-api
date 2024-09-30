@@ -43,7 +43,7 @@ export const getForexData = async (
     return rows;
   } catch (error) {
     console.error("Error fetching forex data:", error);
-    return [];
+    throw error;
   } finally {
     await db.close();
   }

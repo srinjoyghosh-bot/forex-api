@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
+import { Request, Response , NextFunction} from "express";
 import { getForexData } from '../services/forexService';
 import { ForexData } from '../models/forexData';
+import { formatResponse } from '../utils/responseFormatter';
 
 
-export const fetchForexData = async (req: Request, res: Response) => {
+export const fetchForexData = async (req: Request, res: Response,next : NextFunction ) => {
     try {
         const from = req.query.from as string;
         const to = req.query.to as string;
@@ -16,9 +17,9 @@ export const fetchForexData = async (req: Request, res: Response) => {
     
         const forexData : ForexData[] = await getForexData(from, to, period);
     
-         res.json(forexData);
+         res.status(200).json(formatResponse(true,"Forex Data fetched successfully",forexData));
       } catch (error) {
         console.error(error);
-         res.status(500).json({ error: 'Internal Server Error' });
+        next(error)
       }
   };
