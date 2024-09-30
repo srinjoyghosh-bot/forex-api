@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { getForexData } from '../controllers/forexController';
+import { fetchForexData } from '../controllers/forexController';
 
 const router = Router();
 
-router.get('/forex-data', getForexData);
+router.get('/forex-data', fetchForexData);
 
 export default router;
