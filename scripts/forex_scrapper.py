@@ -2,7 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import sqlite3
 from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 import time
+import sys
 
 conn = sqlite3.connect('data/forex_data.db')
 cursor = conn.cursor()
@@ -21,6 +23,22 @@ CREATE TABLE IF NOT EXISTS forex_data (
 
 def to_unix_timestamp(date):
     return int(time.mktime(date.timetuple()))
+
+def calculate_date_range(period):
+    now = datetime.now()
+    if period.endswith("M"):
+        months = int(period[:-1])
+        start_date = now - relativedelta(months=months)
+    elif period.endswith("W"):
+        weeks = int(period[:-1])
+        start_date = now - relativedelta(weeks=weeks)
+    elif period.endswith("Y"):
+        years = int(period[:-1])
+        start_date = now - relativedelta(years=years)
+    else:
+        raise ValueError("Invalid period format. Use 'xM', 'xW', or 'xY'.")
+
+    return start_date, now 
 
 # Function to scrape data and insert it into SQLite
 def scrape_data(quote, from_date, to_date):
@@ -69,7 +87,16 @@ def scrape_data(quote, from_date, to_date):
     conn.commit()
 
 def main():
-    scrape_data('EURUSD=X', datetime.now() - timedelta(days=365), datetime.now())
+    if len(sys.argv) < 4:
+        print(len(sys.argv))
+        print("Usage: python forex_scraper.py <from_curr> <to_curr> <period>")
+        sys.exit(1)
+    from_curr = sys.argv[1]
+    to_curr = sys.argv[2]
+    period=sys.argv[3]
+    from_date, to_date = calculate_date_range(period)
+    currency_pair = f"{from_curr}{to_curr}=X"
+    scrape_data(currency_pair, from_date, to_date)
     for row in cursor.execute('SELECT * FROM forex_data'):
         print(row)
 

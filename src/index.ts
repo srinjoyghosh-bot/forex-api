@@ -5,6 +5,7 @@ import forexRoutes from "./routes/forexRoutes";
 import { connectDB } from "./config/database";
 import { Database } from "sqlite";
 import { errorHandler } from "./middlewares/errorMiddlewares";
+import {scheduleScrapingTasks} from "./utils/scrapingUtils"
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -47,6 +48,8 @@ const setupDatabase = async () => {
   `);
   console.log("Database setup complete");
 };
+
+scheduleScrapingTasks()
 
 app.listen(PORT, async () => {
   await setupDatabase();
