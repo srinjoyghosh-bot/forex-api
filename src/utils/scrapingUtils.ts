@@ -1,7 +1,6 @@
 import { exec } from "child_process";
 import cron from "node-cron";
 import dotenv from "dotenv";
-import { log } from "console";
 
 dotenv.config();
 
