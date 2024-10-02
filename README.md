@@ -4,6 +4,10 @@
 
 This project is designed to scrape and synchronize foreign exchange (forex) rates between specific currency pairs from the Yahoo Finance website using a combination of Node.js and Python. The data is fetched periodically and stored in a database for further analysis or usage.
 
+## API Documentation
+To explore the API endpoints, see the documentation from the link below: \
+[API Documentation](https://documenter.getpostman.com/view/37981067/2sAXxJiv4y) 
+
 ## Features
 
 - Scrapes forex data for predefined currency pairs and periods.
@@ -74,6 +78,4 @@ Before you begin, ensure you have met the following requirements:
 
 
 
-## API Documentation
-To explore the API endpoints, see the documentation from the link below: \
-[API Documentation](https://documenter.getpostman.com/view/37981067/2sAXxJiv4y) 
+
