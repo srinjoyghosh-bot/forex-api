@@ -6,6 +6,9 @@ import { connectDB } from "./config/database";
 import { Database } from "sqlite";
 import { errorHandler } from "./middlewares/errorMiddlewares";
 import {scheduleScrapingTasks} from "./utils/scrapingUtils"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;

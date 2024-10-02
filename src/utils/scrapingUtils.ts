@@ -1,10 +1,13 @@
 import { exec } from "child_process";
 import cron from "node-cron";
+import dotenv from "dotenv";
+import { log } from "console";
+
+dotenv.config();
 
 const scrapeData = (fromCurr: string, toCurr: string, period: string): void => {
   const scriptPath = "scripts/forex_scrapper.py";
-  const pythonPath =
-    "c:/Users/Srinjoy Ghosh/node_projects/forex-api/.venv/Scripts/python.exe";
+  const pythonPath = process.env.PYTHON_PATH;
   const command = `"${pythonPath}" ${scriptPath} ${fromCurr} ${toCurr} ${period}`;
 
   exec(command, (error, stdout, stderr) => {
