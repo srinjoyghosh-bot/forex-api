@@ -3,8 +3,8 @@ import cron from "node-cron";
 
 const scrapeData = (fromCurr: string, toCurr: string, period: string): void => {
   const scriptPath = "scripts/forex_scrapper.py";
-
-  const command = `python3 ${scriptPath} ${fromCurr} ${toCurr} ${period}`;
+  const pythonPath = "c:/Users/Srinjoy Ghosh/node_projects/forex-api/.venv/Scripts/python.exe"
+  const command = `"${pythonPath}" ${scriptPath} ${fromCurr} ${toCurr} ${period}`;
 
   exec(command, (error, stdout, stderr) => {
     if (error) {
@@ -20,6 +20,7 @@ const scrapeData = (fromCurr: string, toCurr: string, period: string): void => {
 };
 
 export function scheduleScrapingTasks() {
+  // scrapeData("GBP","INR", "1W");
   // cron.schedule("* * * * *", () => {
   //     console.log("Running GBP-INR and AED-INR 1W scrape");
   //     scrapeData("GBP","INR", "1W");

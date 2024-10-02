@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import time
 import sys
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning) 
 
 conn = sqlite3.connect('data/forex_data.db')
 cursor = conn.cursor()
@@ -48,7 +50,8 @@ def scrape_data(quote, from_date, to_date):
     print(f"To Timestamp: {to_timestamp}")
     url = f"https://finance.yahoo.com/quote/{quote}/history/?period1={from_timestamp}&period2={to_timestamp}"
     headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+    'Accept': 'text/html'
 }
     print(f"Url is {url}")
     response = requests.get(url,headers=headers)
