@@ -42,7 +42,6 @@ def calculate_date_range(period):
 
     return start_date, now 
 
-# Function to scrape data and insert it into SQLite
 def scrape_data(quote, from_date, to_date):
     from_timestamp = to_unix_timestamp(from_date)
     print(f"From Timestamp: {from_timestamp}")
@@ -106,6 +105,5 @@ def main():
 if __name__ == '__main__':
     main()
 
-# Clean up
 cursor.close()
 conn.close()
